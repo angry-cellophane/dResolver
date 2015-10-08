@@ -53,7 +53,7 @@ public class Resolver {
         RepositorySystemSession session = newSession( repoSystem );
 
         Dependency dependency =
-                new Dependency( new DefaultArtifact( "org.ka:test-d:1.0-SNAPSHOT" ), "compile" );
+                new Dependency( new DefaultArtifact( "org.ka:test-c:1.0-SNAPSHOT" ), "compile" );
         RemoteRepository local = new RemoteRepository.Builder( "local", "default", "file:///C:/Users/Александр/.m2/repository" ).build();
 
         CollectRequest collectRequest = new CollectRequest();
@@ -63,6 +63,7 @@ public class Resolver {
 
         DependencyRequest dependencyRequest = new DependencyRequest();
         dependencyRequest.setRoot( node );
+        dependencyRequest.setFilter((node1, parents) -> !parents.isEmpty() && parents.get(0).equals(node));
 
         DependencyResult result = repoSystem.resolveDependencies(session, dependencyRequest);
         result.getArtifactResults().stream()
@@ -73,8 +74,7 @@ public class Resolver {
 
         PreorderNodeListGenerator nlg = new PreorderNodeListGenerator();
         node.accept( nlg );
-        nlg.getDependencies(true).stream()
-            .map(Dependency::getArtifact)
-            .forEach(a -> System.out.println(a));
+        nlg.getNodes().forEach(System.out::println);
+
     }
 }
