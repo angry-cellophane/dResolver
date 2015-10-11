@@ -1,10 +1,10 @@
-package org.ka.resolver;
+package org.ka.graph;
 
-import org.ka.resolver.node.Node;
+import org.ka.graph.node.Node;
 
 import java.util.List;
 
-public interface Resolver {
+public interface NodeResolver {
     List<Node> getUpstreamOrderedList(Node startNode);
     List<Node> getDownstreamOrderedList(Node startNode);
 }

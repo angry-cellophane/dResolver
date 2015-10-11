@@ -1,11 +1,11 @@
-package org.ka.resolver;
+package org.ka.graph;
 
-import org.ka.resolver.node.Node;
+import org.ka.graph.node.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Graph implements Resolver {
+public class Graph implements NodeResolver {
 
     private static class Edge {
         final String a;

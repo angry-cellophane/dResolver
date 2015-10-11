@@ -1,4 +1,4 @@
-package org.ka.resolver.node;
+package org.ka.graph.node;
 
 
 import java.util.List;

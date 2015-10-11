@@ -1,9 +1,10 @@
-package org.ka.resolver;
+package org.ka.graph;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
-import org.ka.resolver.node.Node;
+import org.ka.graph.Graph;
+import org.ka.graph.node.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;

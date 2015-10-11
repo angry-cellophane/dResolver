@@ -1,4 +1,4 @@
-package org.ka.artifact;
+package org.ka.repo;
 
 public enum Scope {
     COMPILE {
