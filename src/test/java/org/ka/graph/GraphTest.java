@@ -6,10 +6,7 @@ import org.junit.Test;
 import org.ka.graph.Graph;
 import org.ka.graph.node.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static org.junit.Assert.*;
@@ -84,6 +81,21 @@ public class GraphTest {
             new Object[] {"F", "G", "E"},
             new Object[] {"G"},
         });
+
+        put("testCase3", new Object[][] {
+            new Object[] {"A",  "B", "C", "D"},
+            new Object[] {"B",  "E"},
+            new Object[] {"C",  "G" },
+            new Object[] {"D",  "C", "G", "H"},
+            new Object[] {"E",  "I", "F"},
+            new Object[] {"F",  "J", "K"},
+            new Object[] {"G",  "F", "K"},
+            new Object[] {"H",  "K", "F"},
+            new Object[] {"I",  "L"},
+            new Object[] {"J",  "L"},
+            new Object[] {"K"},
+            new Object[] {"L"},
+        });
     }};
 
     @Test
@@ -113,6 +125,28 @@ public class GraphTest {
         assertThat(nodes.get(4), new NodeMatcher(n -> "B".equals(n.getName())));
         assertThat(nodes.get(5), new NodeMatcher(n -> "C".equals(n.getName())));
         assertThat(nodes.get(6), new NodeMatcher(n -> "A".equals(n.getName())));
+    }
+
+    @Test
+    public void testCase3 () {
+        Graph graph = createGraphFor("testCase3");
+        Node startNode = graph.get("A");
+        assertNotNull(startNode);
+        List<Node> nodes = graph.getUpstreamOrderedList(startNode);
+        assertEquals(12, nodes.size());
+
+        assertThat(nodes.get(0), new NodeMatcher(n -> "L".equals(n.getName())) );
+        assertThat(nodes.get(1), new NodeMatcher(n -> "J".equals(n.getName())) );
+        assertThat(nodes.get(2), new NodeMatcher(n -> "K".equals(n.getName())) );
+        assertThat(nodes.get(3), new NodeMatcher(n -> "F".equals(n.getName())) );
+        assertThat(nodes.get(4), new NodeMatcher(n -> "G".equals(n.getName())) );
+        assertThat(nodes.get(5), new NodeMatcher(n -> "I".equals(n.getName())) );
+        assertThat(nodes.get(6), new NodeMatcher(n -> "C".equals(n.getName())) );
+        assertThat(nodes.get(7), new NodeMatcher(n -> "E".equals(n.getName())) );
+        assertThat(nodes.get(8), new NodeMatcher(n -> "H".equals(n.getName())) );
+        assertThat(nodes.get(9), new NodeMatcher(n -> "B".equals(n.getName())) );
+        assertThat(nodes.get(10), new NodeMatcher(n -> "D".equals(n.getName())));
+        assertThat(nodes.get(11), new NodeMatcher(n -> "A".equals(n.getName())));
     }
 
     private Graph createGraphFor(String testCase) {
